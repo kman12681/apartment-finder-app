@@ -1,0 +1,20 @@
+<div class="filter-field"><mat-form-field appearance="outline">
+    <mat-label>Min price</mat-label>
+    <input matInput #min placeholder="enter minimum price">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Max price</mat-label>
+    <input matInput #max placeholder="enter max price">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Number of bedrooms</mat-label>
+    <input matInput #bedrooms placeholder="enter number of bedrooms">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Number of bathrooms</mat-label>
+    <input matInput #bathrooms placeholder="enter number of bathrooms" >
+  </mat-form-field>
+</div>
+<div class="filter-button">
+<button mat-raised-button color="primary" (click)="onSetFilter(min, max, bedrooms, bathrooms)">Filter</button>
+</div>

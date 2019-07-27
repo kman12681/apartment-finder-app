@@ -1,0 +1,15 @@
+img {
+    display: block;
+    max-width:230px;
+    max-height:95px;
+    width: auto;
+    height: auto;
+    border-radius: 5px;
+
+  }
+
+.bottom-myMargin { margin-bottom:5%; }
+
+table {
+    width: 100%;
+}

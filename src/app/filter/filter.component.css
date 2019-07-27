@@ -1,0 +1,16 @@
+.mat-raised-button.mat-primary {
+  background: #aa9fb1;
+  color: #fff;
+}
+
+.filter-field {
+  display: flex;
+  justify-content: center;
+}
+
+.filter-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
