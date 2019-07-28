@@ -5,6 +5,6 @@ export interface Apartment {
     bedrooms: number;
     bathrooms: number;
     price: number;
-    city: string;
-    state: string;
+    city?: string;
+    state?: string;
 }

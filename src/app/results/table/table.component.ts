@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DataSource } from '@angular/cdk/table';
-import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-table',
@@ -9,6 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class TableComponent implements OnInit {
   @Input() dataSource: [{}];
+
+  @Input() hasResults: boolean;
 
   // dataSource = new MatTableDataSource<any>(this.apartments);
   // @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;

@@ -1,0 +1,3 @@
+<app-header></app-header>
+<app-filter (showApartments)="getApartments($event)"></app-filter>
+<app-results [hasResults]="hasResults" [apartments]="results"></app-results>
