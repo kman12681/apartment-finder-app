@@ -13,3 +13,8 @@ img {
 table {
     width: 100%;
 }
+
+.search-field {
+  display: flex;
+  justify-content: center;
+}

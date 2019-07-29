@@ -1,17 +1,20 @@
 <div class="filter-field">
+  <!-- <mat-slider
+  min="0" max="7" step="0.5" value="1.5" thumbLabel [displayWith]="formatLabel" #price></mat-slider> -->
   <mat-form-field appearance="outline">
     <mat-label>Max price</mat-label>
-    <input matInput #price placeholder="enter max price">
+    <input matInput #price placeholder="no max">
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Number of bedrooms</mat-label>
-    <input matInput #bedrooms placeholder="enter number of bedrooms">
+    <input matInput #bedrooms placeholder="any">
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Number of bathrooms</mat-label>
-    <input matInput #bathrooms placeholder="enter number of bathrooms" >
+    <input matInput #bathrooms placeholder="any" >
   </mat-form-field>
 </div>
+
 <div class="filter-button">
 <button mat-raised-button color="primary" (click)="onShowApartments(price, bedrooms, bathrooms)">Show Apartments</button>
 </div>

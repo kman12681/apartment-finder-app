@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { Apartment } from 'src/app/interfaces/apartment';
 
 @Component({
   selector: 'app-table',
@@ -6,12 +8,17 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  @Input() dataSource: [{}];
+  @Input()
+  get data() {
+    return this.dataSource.data;
+  }
+  set data(value: any) {
+    this.dataSource.data = value;
+  }
 
   @Input() hasResults: boolean;
 
-  // dataSource = new MatTableDataSource<any>(this.apartments);
-  // @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  dataSource = new MatTableDataSource<Apartment[]>();
 
   displayedColumns: string[] = [
     'image',
@@ -22,15 +29,12 @@ export class TableComponent implements OnInit {
     'price'
   ];
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit() {
-    // this.dataSource.paginator = this.paginator;
-    // console.log(this.dataSource);
   }
 
-  // applyFilter(filterValue: string) {
-  //   this.data.filter = filterValue.trim().toLowerCase();
-  // }
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

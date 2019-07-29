@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ListingsService } from '../services/listings.service';
 import { Apartment } from '../interfaces/apartment';
 
@@ -7,18 +7,18 @@ import { Apartment } from '../interfaces/apartment';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   apartments: Apartment[] = [];
   filteredApartments: Apartment[] = [];
-  results;
+  results: Apartment[];
+  hasResults: boolean;
 
   constructor(private listService: ListingsService) {}
 
   getApartments(filter) {
-    console.log(filter);
+    this.results = [];
     this.listService.getAllListings().subscribe(apartments => {
-      this.apartments = apartments.data;
-      const objs = this.apartments.map(x => {
+      this.apartments = apartments.data.map(x => {
         return {
           image_id: x[7],
           building_name: x[6],
@@ -28,13 +28,13 @@ export class HomeComponent {
           price: x[1]
         };
       });
-      this.apartments = objs;
-      for (const apartment of this.apartments) {
-        if (apartment.price <= parseInt(filter.price, 0)) {
-          this.filteredApartments.push(apartment);
-        }
-        this.results = this.filteredApartments;
-      }
+      this.results = this.listService.getFilteredListings(
+        this.apartments,
+        filter
+      );
     });
+    this.hasResults = true;
   }
+
+  ngOnInit() {}
 }
