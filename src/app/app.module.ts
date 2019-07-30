@@ -17,13 +17,24 @@ import { MatCardModule } from '@angular/material/card';
 import { HomeComponent } from './home/home.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatRadioModule } from '@angular/material/radio';
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { DetailsComponent } from './results/details/details.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 const appRoutes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    children: [{ path: 'results', component: ResultsComponent }]
+    children: [
+      {
+        path: 'results',
+        component: ResultsComponent
+      },
+      {
+        path: 'details/:id',
+        component: DetailsComponent
+      }
+    ]
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
@@ -35,7 +46,8 @@ const appRoutes: Routes = [
     FilterComponent,
     ResultsComponent,
     TableComponent,
-    HomeComponent
+    HomeComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +60,8 @@ const appRoutes: Routes = [
     MatCardModule,
     MatSliderModule,
     MatRadioModule,
+    MatButtonToggleModule,
+    MatPaginatorModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],

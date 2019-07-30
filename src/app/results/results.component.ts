@@ -6,9 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./results.component.css']
 })
 export class ResultsComponent {
-  @Input() apartments;
-
-  @Input() hasResults: boolean;
 
   constructor() {}
+
 }

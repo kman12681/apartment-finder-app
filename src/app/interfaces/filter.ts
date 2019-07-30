@@ -1,5 +1,5 @@
 export interface Filter {
-    price: string;
-    bedrooms: string;
-    bathrooms: string;
+    price: number;
+    bedrooms: number;
+    bathrooms: number;
 }

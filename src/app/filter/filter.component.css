@@ -24,3 +24,29 @@
   margin: 5px;
 }
 
+mat-button-toggle-group {
+  margin-top: 4px;
+  height: 57px;
+}
+
+mat-button-toggle {
+  margin: 0 auto;
+  width: 40px;
+  height: 100%;
+}
+
+.toggle-group {
+  margin: 0 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.price-label {
+  margin-top: 17px;
+}
+
+.toggle-label {
+  margin: 10px 0;
+}
+
