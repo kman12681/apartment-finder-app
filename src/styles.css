@@ -1,5 +1,10 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+    background-color: #FF0266;
+    color: white;
+  }
+
 
 
 

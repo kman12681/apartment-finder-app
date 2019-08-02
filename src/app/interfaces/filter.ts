@@ -1,5 +1,6 @@
 export interface Filter {
-    price: number;
+    min: number;
+    max: number;
     bedrooms: number;
     bathrooms: number;
 }

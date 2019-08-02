@@ -1,14 +1,19 @@
-.mat-raised-button.mat-primary {
-  background: #7871AA;
-  color: #fff;
+
+
+.filter-card {
+  display: flex;
+  margin: 20px;
 }
 
 .filter-field {
+  width: 100%;
   display: flex;
+  flex-direction: row;
   justify-content: center;
 }
 
 .filter-button {
+  height: 100%;
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
@@ -24,9 +29,12 @@
   margin: 5px;
 }
 
+.divider {
+  margin: 10px;
+}
+
 mat-button-toggle-group {
   margin-top: 4px;
-  height: 57px;
 }
 
 mat-button-toggle {
@@ -50,3 +58,6 @@ mat-button-toggle {
   margin: 10px 0;
 }
 
+.container {
+  width: 100%;
+}

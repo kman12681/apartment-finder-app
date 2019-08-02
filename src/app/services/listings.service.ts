@@ -2,29 +2,33 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Apartment } from '../interfaces/apartment';
 import { Subject, Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Filter } from '../interfaces/filter';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListingsService {
-  url = 'assets/listings.json';
-  apartments: Apartment[] = [];
-  filteredApartments: Apartment[] = [];
-  results: Apartment[];
-  hasResults: boolean;
+  private url = 'assets/listings.json';
+  private apartments: Apartment[] = [];
+  private filter: Filter = {
+    min: null,
+    max: null,
+    bedrooms: null,
+    bathrooms: null
+  };
+  private results: Apartment[];
 
   private resultsSub = new Subject<Apartment[]>();
 
-  private detailSub = new Subject<Apartment[]>();
+  constructor(private http: HttpClient, private router: Router) {}
 
-  constructor(private http: HttpClient) {}
-
-  public getAllListings() {
+  private getListings() {
     return this.http.get<any>(this.url);
   }
 
-  getApartments(filter) {
-    this.getAllListings().subscribe(apartments => {
+  public showApartments() {
+    this.getListings().subscribe(apartments => {
       this.apartments = apartments.data.map(x => {
         return {
           image_id: x[7],
@@ -35,20 +39,21 @@ export class ListingsService {
           price: x[1]
         };
       });
-      this.results = this.getFilteredListings(this.apartments, filter);
+      this.results = this.getFilteredListings(this.apartments, this.filter);
       this.sendResults(this.results);
     });
-    this.hasResults = true;
   }
 
   public getFilteredListings(listings, filter) {
-    const price = filter.price;
+    const min = filter.min;
+    const max = filter.max;
     const bedrooms = filter.bedrooms;
     const bathrooms = filter.bathrooms;
     const filteredApartments = [];
     for (const apartment of listings) {
       if (
-        (!price || apartment.price <= price) &&
+        (!min || apartment.price >= min) &&
+        (!max || apartment.price <= max) &&
         (!bedrooms || apartment.bedrooms === bedrooms) &&
         (!bathrooms || apartment.bathrooms === bathrooms)
       ) {
@@ -58,28 +63,21 @@ export class ListingsService {
     return filteredApartments;
   }
 
-  sendResults(results) {
-    this.resultsSub.next(results);
+  public setFilter(filterMin, filterMax, filterBedrooms, filterBathrooms) {
+    this.filter = {
+      min: filterMin || undefined,
+      max: filterMax || undefined,
+      bedrooms: filterBedrooms || undefined,
+      bathrooms: filterBathrooms || undefined
+    };
+    this.showApartments();
   }
 
-  getResults(): Observable<any> {
+  public getResults(): Observable<any> {
     return this.resultsSub.asObservable();
   }
 
-  sendDetails(details) {
-    this.detailSub.next(details);
-  }
-
-  getDetails(id) {
-    for (const result of this.results) {
-      if (result.image_id === id) {
-        this.sendDetails(result);
-        // return this.detailSub.asObservable();
-      }
-    }
-  }
-
-  getDetail(): Observable<Apartment[]> {
-    return this.detailSub.asObservable();
+  private sendResults(results) {
+    this.resultsSub.next(results);
   }
 }

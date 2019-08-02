@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+import { SnackbarComponent } from './snackbar';
 
 @Component({
   selector: 'app-results',
@@ -6,7 +8,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./results.component.css']
 })
 export class ResultsComponent {
+  constructor(private snackbar: MatSnackBar) {}
 
-  constructor() {}
-
+  getSnackbar(event) {
+    this.snackbar.openFromComponent(SnackbarComponent, { duration: 3000 });
+  }
 }

@@ -1,12 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FilterComponent } from './filter/filter.component';
 import { ResultsComponent } from './results/results.component';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
@@ -18,23 +16,32 @@ import { HomeComponent } from './home/home.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { DetailsComponent } from './results/details/details.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { CdkTreeModule } from '@angular/cdk/tree';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  MatCheckboxModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRippleModule,
+  MatSlideToggleModule,
+  MatSortModule,
+  MatTabsModule,
+  MatTreeModule,
+  MatSnackBarModule,
+} from '@angular/material';
+import { CdkTableModule } from '@angular/cdk/table';
+import { CdkDetailRowDirective } from './cdk-detail-row.directive';
+import { SnackbarComponent } from './results/snackbar';
 
 const appRoutes: Routes = [
   {
     path: 'home',
-    component: HomeComponent,
-    children: [
-      {
-        path: 'results',
-        component: ResultsComponent
-      },
-      {
-        path: 'details/:id',
-        component: DetailsComponent
-      }
-    ]
+    component: HomeComponent
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
@@ -47,7 +54,8 @@ const appRoutes: Routes = [
     ResultsComponent,
     TableComponent,
     HomeComponent,
-    DetailsComponent
+    SnackbarComponent,
+    CdkDetailRowDirective
   ],
   imports: [
     BrowserModule,
@@ -62,9 +70,34 @@ const appRoutes: Routes = [
     MatRadioModule,
     MatButtonToggleModule,
     MatPaginatorModule,
+    MatDividerModule,
+    MatExpansionModule,
+    CdkTableModule,
+    CdkTreeModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTreeModule,
+    MatSnackBarModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],
+  entryComponents: [SnackbarComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

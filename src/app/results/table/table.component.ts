@@ -1,33 +1,36 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Apartment } from 'src/app/interfaces/apartment';
 import { Subscription } from 'rxjs';
 import { ListingsService } from 'src/app/services/listings.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { SelectionModel } from '@angular/cdk/collections';
 import { Router } from '@angular/router';
+import { trigger, state, transition, animate, style } from '@angular/animations';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css']
+  styleUrls: ['./table.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('void', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
+      state('*', style({ height: '*', visibility: 'visible' })),
+      transition('void <=> *', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
-export class TableComponent implements OnInit, OnDestroy {
+export class TableComponent implements OnDestroy {
+  panelOpenState = false;
   sub: Subscription;
   results = [];
-  selection = new SelectionModel<Apartment>(true, []);
+  hasResults: boolean;
 
-  dataSource = new MatTableDataSource<Apartment[]>(this.results);
+  @Output() showResults = new EventEmitter();
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  dataSource = new MatTableDataSource<Apartment[]>();
 
   displayedColumns: string[] = [
-    'image',
     'name',
     'address',
     'bedrooms',
@@ -35,27 +38,20 @@ export class TableComponent implements OnInit, OnDestroy {
     'price'
   ];
 
+  isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
+
   constructor(private listService: ListingsService, private router: Router) {
     this.sub = this.listService.getResults().subscribe(results => {
       this.results = results;
+      this.hasResults = this.results.length > 0;
+      if (!this.hasResults) {
+        this.showResults.emit();
+      }
     });
-  }
-
-  ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
     this.sub.unsubscribe();
-  }
-
-  getDetails(row?: Apartment) {
-    this.listService.getDetails(row.image_id);
-    this.router.navigateByUrl('/home/details/' + row.image_id);
   }
 }
