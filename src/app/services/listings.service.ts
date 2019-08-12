@@ -23,7 +23,7 @@ export class ListingsService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  private getListings() {
+  public getListings() {
     return this.http.get<any>(this.url);
   }
 

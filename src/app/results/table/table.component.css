@@ -73,4 +73,7 @@ table {
   border-bottom-color: transparent;
 }
 
+mat-divider {
+  margin: 50px;
+}
 

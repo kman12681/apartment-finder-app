@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './header/header.component';
 import { FilterComponent } from './filter/filter.component';
 import { ResultsComponent } from './results/results.component';
@@ -94,6 +95,7 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatTreeModule,
     MatSnackBarModule,
+    NgbModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],
